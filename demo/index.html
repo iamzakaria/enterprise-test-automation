@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width">
+<title>Quality Engineering Task Board</title></head>
+<body>
+<main><h1>Quality Engineering Task Board</h1>
+<form id="task-form">
+<label for="task-name">Task name</label>
+<input id="task-name" name="task" required maxlength="120" autocomplete="off">
+<button type="submit">Add task</button>
+</form>
+<ul aria-label="Tasks"></ul>
+<p role="status" aria-live="polite">No tasks yet</p>
+</main>
+<script>
+const form = document.querySelector('form');
+const input = document.querySelector('input');
+const tasks = document.querySelector('ul');
+const status = document.querySelector('[role="status"]');
+form.addEventListener('submit', event => {
+  event.preventDefault();
+  const name = input.value.trim();
+  if (!name) { status.textContent = 'Enter a task name'; return; }
+  const item = document.createElement('li');
+  item.textContent = name;
+  tasks.appendChild(item);
+  status.textContent = `${tasks.children.length} task(s) added`;
+  form.reset();
+});
+</script>
+</body></html>
